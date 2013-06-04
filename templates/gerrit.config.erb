@@ -1,16 +1,16 @@
 [gerrit]
         basePath = git
-        canonicalWebUrl = <%= canonical_web_url %>
+        canonicalWebUrl = <%= @canonical_web_url %>
 [database]
-        type = <%= gerrit_database_type %>
-        hostname = <%= gerrit_database_hostname %>
-        database = <%= gerrit_database_database %>
-        username = <%= gerrit_database_username %>
-        password = <%= gerrit_database_password %>
+        type = <%= @gerrit_database_type %>
+        hostname = <%= @gerrit_database_hostname %>
+        database = <%= @gerrit_database_database %>
+        username = <%= @gerrit_database_username %>
+        password = <%= @gerrit_database_password %>
 [auth]
-        type = <%= auth_type %>
+        type = <%= @auth_type %>
 <% if @email_format -%>
-        emailFormat = <%= email_format %>
+        emailFormat = <%= @email_format %>
 <% end -%>
 [sendemail]
         smtpServer = localhost
@@ -18,9 +18,9 @@
         user = gerrit
         javaHome = /etc/alternatives/jre
 [sshd]
-        listenAddress = <%= sshd_listen_address %>
+        listenAddress = <%= @sshd_listen_address %>
 [httpd]
-        listenUrl = <%= httpd_listen_url %>
+        listenUrl = <%= @httpd_listen_url %>
 [cache]
         directory = cache
 <% if @proxy_server -%>
