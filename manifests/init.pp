@@ -174,7 +174,9 @@ class gerrit (
   $command = "sudo -u ${gerrit_user} java -jar ${gerrit_war_file} init -d ${gerrit_home}/${gerrit_site_name} --batch --no-auto-start"
 
   if $database_manage {
-    class {"gerrit::database::${database_type}":}
+    class {"gerrit::database::${database_type}":
+      notify => Exec['init_gerrit'],
+    }
   }
 
   # Initialisation of gerrit site
