@@ -145,7 +145,7 @@ class gerrit (
     ]
   }
 
-  if versioncmp($gerrit_version, '2.5') < 0 and versioncmp($gerrit_version, '2.5.3') < 0 {
+  if versioncmp($gerrit_version, '2.5') < 0 or versioncmp($gerrit_version, '2.5.3') >= 0 {
     $warfile = "gerrit-${gerrit_version}.war"
   } else {
     $warfile = "gerrit-full-${gerrit_version}.war"
