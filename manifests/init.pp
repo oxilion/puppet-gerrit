@@ -78,6 +78,7 @@ class gerrit (
   $database_username          = $gerrit::params::database_username,
   $database_password          = $gerrit::params::database_password,
   $gerrit_java                = $gerrit::params::gerrit_java,
+  $gerrit_email               = undef,
   $canonical_web_url          = $gerrit::params::canonical_web_url,
   $sshd_listen_address        = $gerrit::params::sshd_listen_address,
   $httpd_listen_url           = $gerrit::params::httpd_listen_url,
@@ -87,13 +88,13 @@ class gerrit (
   $ldap_username              = undef,
   $ldap_password              = undef,
   $ldap_account_base          = undef,
-  $ldap_account_pattern       = '(uid=${username})',
-  $ldap_account_full_name     = 'cn',
-  $ldap_account_email_address = 'mail',
+  $ldap_account_pattern       = undef,
+  $ldap_account_full_name     = undef,
+  $ldap_account_email_address = undef,
   $ldap_group_base            = undef,
-  $ldap_group_pattern         = '(cn=${groupname})',
-  $ldap_group_member_pattern  = '(memberUid=${username})',
-  $email_format               = 'example.com'
+  $ldap_group_pattern         = undef,
+  $ldap_group_member_pattern  = undef,
+  $email_format               = undef,
 ) inherits gerrit::params {
 
   $gerrit_war_file = "${gerrit_home}/gerrit-${gerrit_version}.war"
@@ -136,8 +137,8 @@ class gerrit (
   # Correct gerrit_home uid & gid
   file { $gerrit_home:
     ensure     => directory,
-    owner      => $gerrit_uid,
-    group      => $gerrit_gid,
+    owner      => $gerrit_user,
+    group      => $gerrit_group,
     require    => [
       User[$gerrit_user],
       Group[$gerrit_group],
@@ -199,7 +200,7 @@ class gerrit (
     require => Exec['init_gerrit']
   }->
   file {'/etc/init.d/gerrit':
-    ensure  => symlink,
+    ensure  => link,
     target  => "${gerrit_home}/${gerrit_site_name}/bin/gerrit.sh",
     require => Exec['init_gerrit']
   }

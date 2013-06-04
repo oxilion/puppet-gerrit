@@ -15,7 +15,7 @@
 [sendemail]
         smtpServer = localhost
 [container]
-        user = gerrit
+        user = <%= @gerrit_user %>
         javaHome = /etc/alternatives/jre
 [sshd]
         listenAddress = <%= @sshd_listen_address %>
@@ -27,20 +27,34 @@
 [http]
         proxy = http://<%= @proxy_server %>
 <% end -%>
+<% if @gerrit_email -%>
+[user]
+        email = <%= @gerrit_email %>
+<% end -%>
 <% if @use_ldap -%>
 [ldap]
         server = <%= @ldap_server %>
-
 <% if @ldap_username -%>
         username = <%= @ldap_username %>
         password = <%= @ldap_password %>
 <% end -%>
+
         accountBase = <%= @ldap_account_base %>
+        <% if @ldap_account_pattern -%>
         accountPattern = <%= @ldap_account_pattern %>
+        <% end -%>
+        <% if @ldap_account_full_name -%>
         accountFullName = <%= @ldap_account_full_name %>
+        <% end -%>
+        <% if @ldap_account_email_address -%>
         accountEmailAddress = <%= @ldap_account_email_address %>
+        <% end -%>
 
         groupBase = <%= @ldap_group_base %>
+        <% if @ldap_group_pattern -%>
         groupPattern = <%= @ldap_group_pattern %>
+        <% end -%>
+        <% if @ldap_group_member_pattern -%>
         groupMemberPattern = <%= @ldap_group_member_pattern %>
-<% end -%>
+        <% end -%>
+<% end %>

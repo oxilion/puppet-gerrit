@@ -10,7 +10,7 @@ class gerrit::params {
   }
   # GroupId of gerrit group
   $gerrit_gid = $::operatingsystem ? {
-    default => '515',
+    default => undef,
   }
   # Username, gerrit runs on
   $gerrit_user = $::operatingsystem ? {
@@ -26,7 +26,7 @@ class gerrit::params {
   }
   # UserID of created gerrit User
   $gerrit_uid = $::operatingsystem ? {
-    default => '515',
+    default => undef,
   }
   # Name of gerrit review site directory
   $gerrit_site_name = $::operatingsystem ? {
@@ -53,7 +53,7 @@ class gerrit::params {
   }
 
   $database_username = $::operatingsystem ? {
-    default => 'gerrit2',
+    default => 'gerrit',
   }
 
   # Package to install for providing JAVA
