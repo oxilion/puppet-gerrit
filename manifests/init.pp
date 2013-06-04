@@ -62,28 +62,45 @@
 #   Robert Einsle <robert@einsle.de>
 #
 class gerrit (
-  $gerrit_version           = $gerrit::params::gerrit_version,
-  $gerrit_group             = $gerrit::params::gerrit_group,
-  $gerrit_gid               = $gerrit::params::gerrit_gid,
-  $gerrit_user              = $gerrit::params::gerrit_user,
-  $gerrit_groups            = $gerrit::params::gerrit_groups,
-  $gerrit_home              = $gerrit::params::gerrit_home,
-  $gerrit_uid               = $gerrit::params::gerrit_uid,
-  $gerrit_site_name         = $gerrit::params::gerrit_site_name,
-  $gerrit_database_type     = $gerrit::params::gerrit_database_type,
-  $gerrit_database_hostname = $gerrit::params::gerrit_database_hostname,
-  $gerrit_database_database = $gerrit::params::gerrit_database_database,
-  $gerrit_database_username = $gerrit::params::gerrit_database_username,
-  $gerrit_database_password = $gerrit::params::gerrit_database_password,
-  $gerrit_java              = $gerrit::params::gerrit_java,
-  $canonical_web_url        = $gerrit::params::canonical_web_url,
-  $sshd_listen_address      = $gerrit::params::sshd_listen_address,
-  $httpd_listen_url         = $gerrit::params::httpd_listen_url,
-  $download_mirror          = 'http://gerrit.googlecode.com/files',
-  $email_format             = 'example.com'
+  $gerrit_version             = $gerrit::params::gerrit_version,
+  $gerrit_group               = $gerrit::params::gerrit_group,
+  $gerrit_gid                 = $gerrit::params::gerrit_gid,
+  $gerrit_user                = $gerrit::params::gerrit_user,
+  $gerrit_groups              = $gerrit::params::gerrit_groups,
+  $gerrit_home                = $gerrit::params::gerrit_home,
+  $gerrit_uid                 = $gerrit::params::gerrit_uid,
+  $gerrit_site_name           = $gerrit::params::gerrit_site_name,
+  $gerrit_database_type       = $gerrit::params::gerrit_database_type,
+  $gerrit_database_hostname   = $gerrit::params::gerrit_database_hostname,
+  $gerrit_database_database   = $gerrit::params::gerrit_database_database,
+  $gerrit_database_username   = $gerrit::params::gerrit_database_username,
+  $gerrit_database_password   = $gerrit::params::gerrit_database_password,
+  $gerrit_java                = $gerrit::params::gerrit_java,
+  $canonical_web_url          = $gerrit::params::canonical_web_url,
+  $sshd_listen_address        = $gerrit::params::sshd_listen_address,
+  $httpd_listen_url           = $gerrit::params::httpd_listen_url,
+  $download_mirror            = 'http://gerrit.googlecode.com/files',
+  $auth_type                  = $gerrit::params::auth_type,
+  $ldap_server                = undef,
+  $ldap_username              = undef,
+  $ldap_password              = undef,
+  $ldap_account_base          = undef,
+  $ldap_account_pattern       = '(uid=${username})',
+  $ldap_account_full_name     = 'cn',
+  $ldap_account_email_address = 'mail',
+  $ldap_group_base            = undef,
+  $ldap_group_pattern         = '(cn=${groupname})',
+  $ldap_group_member_pattern  = '(memberUid=${username})',
+  $email_format               = 'example.com'
 ) inherits gerrit::params {
 
   $gerrit_war_file = "${gerrit_home}/gerrit-${gerrit_version}.war"
+
+  #LDAP
+  $use_ldap = $auth_type ? {
+    /(LDAP|HTTP_LDAP|CLIENT_SSL_CERT_LDAP)/ => true,
+    default            => false,
+  }
 
   # Install required packages
   package { [
