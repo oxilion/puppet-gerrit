@@ -36,9 +36,9 @@ class gerrit::params {
   $gerrit_database_type = $::operatingsystem ? {
     default => 'pgsql',
   }
-  # 
+  # Default database password
   $gerrit_database_password = $::operatingsystem ? {
-    default => "",
+    default => '',
   }
   $gerrit_database_hostname = $::operatingsystem ? {
     default => 'localhost',
