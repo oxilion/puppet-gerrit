@@ -4,3 +4,5 @@ Session.vim
 .project
 metadata.json
 pkg/
+Gemfile.lock
+spec/fixtures/
