@@ -2,11 +2,11 @@
         basePath = git
         canonicalWebUrl = <%= @canonical_web_url %>
 [database]
-        type = <%= @gerrit_database_type %>
-        hostname = <%= @gerrit_database_hostname %>
-        database = <%= @gerrit_database_database %>
-        username = <%= @gerrit_database_username %>
-        password = <%= @gerrit_database_password %>
+        type = <%= @database_type %>
+        hostname = <%= @database_hostname %>
+        database = <%= @database_database %>
+        username = <%= @database_username %>
+        password = <%= @database_password %>
 [auth]
         type = <%= @auth_type %>
 <% if @email_format -%>

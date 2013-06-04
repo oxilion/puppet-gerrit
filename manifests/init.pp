@@ -32,22 +32,23 @@
 # [*gerrit_site_name*]
 #   Name of gerrit review site directory
 #
-# Gerrit config variables:
+# [*database_type*]
+#   Database type
 #
-# [*gerrit_database_type*]
-#   Database type for gerrit.config file
+# [*database_manage*]
+#   Whether to manage the database
 #
-# [*gerrit_database_hostname*]
-#   Database hostname for gerrit.config file
+# [*database_hostname*]
+#   Database hostname
 #
-# [*gerrit_database_database*]
-#   Database name for gerrit.config file
+# [*database_database*]
+#   Database name
 #
-# [*gerrit_database_username*]
-#   Database username for gerrit.config file
+# [*database_username*]
+#   Database username
 #
-# [*gerrit_database_password*]
-#   Database password for gerrit.config file
+# [*database_password*]
+#   Database password
 #
 # [*canonical_web_url*]
 #   Canonical URL of the Gerrit review site, used on generated links
@@ -70,11 +71,12 @@ class gerrit (
   $gerrit_home                = $gerrit::params::gerrit_home,
   $gerrit_uid                 = $gerrit::params::gerrit_uid,
   $gerrit_site_name           = $gerrit::params::gerrit_site_name,
-  $gerrit_database_type       = $gerrit::params::gerrit_database_type,
-  $gerrit_database_hostname   = $gerrit::params::gerrit_database_hostname,
-  $gerrit_database_database   = $gerrit::params::gerrit_database_database,
-  $gerrit_database_username   = $gerrit::params::gerrit_database_username,
-  $gerrit_database_password   = $gerrit::params::gerrit_database_password,
+  $database_type              = $gerrit::params::database_type,
+  $database_manage            = $gerrit::params::database_manage,
+  $database_hostname          = $gerrit::params::database_hostname,
+  $database_database          = $gerrit::params::database_database,
+  $database_username          = $gerrit::params::database_username,
+  $database_password          = $gerrit::params::database_password,
   $gerrit_java                = $gerrit::params::gerrit_java,
   $canonical_web_url          = $gerrit::params::canonical_web_url,
   $sshd_listen_address        = $gerrit::params::sshd_listen_address,
@@ -169,6 +171,10 @@ class gerrit (
 
   # ´exec' doesn't work with additional groups, so we resort to sudo
   $command = "sudo -u ${gerrit_user} java -jar ${gerrit_war_file} init -d ${gerrit_home}/${gerrit_site_name} --batch --no-auto-start"
+
+  if $database_manage {
+    class {"gerrit::database::${database_type}":}
+  }
 
   # Initialisation of gerrit site
   exec {

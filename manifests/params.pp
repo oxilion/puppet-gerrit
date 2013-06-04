@@ -32,24 +32,28 @@ class gerrit::params {
   $gerrit_site_name = $::operatingsystem ? {
     default => 'review_site',
   }
-  # type of Database storing configs of gerrit ['mysql' / 'pgsql' / 'h2']
-  $gerrit_database_type = $::operatingsystem ? {
-    default => 'pgsql',
+  # type of Database storing configs of gerrit ['mysql' / 'postgresql' / 'h2']
+  $database_type = $::operatingsystem ? {
+    default => 'postgresql',
+  }
+  # Manage the database?
+  $database_manage = $::operatingsystem ? {
+    default => true,
   }
   # Default database password
-  $gerrit_database_password = $::operatingsystem ? {
+  $database_password = $::operatingsystem ? {
     default => '',
   }
-  $gerrit_database_hostname = $::operatingsystem ? {
+  $database_hostname = $::operatingsystem ? {
     default => 'localhost',
   }
 
-  $gerrit_database_database = $::operatingsystem ? {
-    default => 'db/ReviewDB',
+  $database_database = $::operatingsystem ? {
+    default => 'reviewdb',
   }
 
-  $gerrit_database_username = $::operatingsystem ? {
-    default => 'gerrit',
+  $database_username = $::operatingsystem ? {
+    default => 'gerrit2',
   }
 
   # Package to install for providing JAVA
