@@ -82,7 +82,7 @@ class gerrit (
   $canonical_web_url          = $gerrit::params::canonical_web_url,
   $sshd_listen_address        = $gerrit::params::sshd_listen_address,
   $httpd_listen_url           = $gerrit::params::httpd_listen_url,
-  $download_mirror            = 'http://gerrit.googlecode.com/files',
+  $download_mirror            = $gerrit::params::download_mirror,
   $auth_type                  = $gerrit::params::auth_type,
   $ldap_server                = undef,
   $ldap_username              = undef,
@@ -151,7 +151,7 @@ class gerrit (
     $warfile = "gerrit-full-${gerrit_version}.war"
   }
 
-  # Funktion für Download eines Files per URL
+  # Function to download gerrit releases
   exec { 'download_gerrit':
     command => "wget -q '${download_mirror}/${warfile}' -O ${gerrit_war_file}",
     creates => $gerrit_war_file,

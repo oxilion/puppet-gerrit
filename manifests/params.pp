@@ -68,4 +68,6 @@ class gerrit::params {
   $sshd_listen_address = '*:29418'
 
   $auth_type = 'HTTP'
+
+  $download_mirror = 'http://gerrit-releases.storage.googleapis.com'
 }
