@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'gerrit' do
   let :facts do
     {
+      :concat_basedir           => '/nonexistant',
       :osfamily                 => 'RedHat',
       :postgres_default_version => '8.4',
     }
