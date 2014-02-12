@@ -1,9 +1,8 @@
 fixtures:
   repositories:
     concat:     "git://github.com/puppetlabs/puppetlabs-concat"
-    postgresql:
-      repo: 'git://github.com/puppetlabs/puppet-postgresql.git'
-      ref: '1d416a6c1542f12c2b22f394a3f8cc7a26370152'
+    inifile:    "git://github.com/puppetlabs/puppetlabs-inifile"
+    postgresql: 'git://github.com/puppetlabs/puppetlabs-postgresql.git'
     stdlib:     "git://github.com/puppetlabs/puppetlabs-stdlib"
 
   symlinks:

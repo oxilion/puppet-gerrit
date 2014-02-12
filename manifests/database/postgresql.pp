@@ -7,8 +7,9 @@ class gerrit::database::postgresql {
   }
 
   include postgresql::client, postgresql::server
-  postgresql::db { $gerrit::database_database:
+  postgresql::server::db { $gerrit::database_database:
     user     => $gerrit::database_username,
-    password => postgresql_password($gerrit::database_username, $gerrit::database_password),
+    password => postgresql_password($gerrit::database_username,
+                                    $gerrit::database_password),
   }
 }

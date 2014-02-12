@@ -1,60 +1,40 @@
 # Class: gerrit::params
 class gerrit::params {
   # Version of gerrit
-  $gerrit_version = $::operatingsystem ? {
-    default => '2.5',
-  }
+  $gerrit_version = '2.8.1'
+
   # Group which gerrit is in
-  $gerrit_group = $::operatingsystem ? {
-    default => 'gerrit',
-  }
+  $gerrit_group = 'gerrit'
+
   # GroupId of gerrit group
-  $gerrit_gid = $::operatingsystem ? {
-    default => undef,
-  }
+  $gerrit_gid = undef
+
   # Username, gerrit runs on
-  $gerrit_user = $::operatingsystem ? {
-    default => 'gerrit',
-  }
+  $gerrit_user = 'gerrit'
+
   # Groups for the gerrit user
-  $gerrit_groups = $::operatingsystem ? {
-    default => undef,
-  }
+  $gerrit_groups = undef
+
   # Home-Directory where gerrit whould be installed
-  $gerrit_home = $::operatingsystem ? {
-    default => '/opt/gerrit',
-  }
+  $gerrit_home = '/opt/gerrit'
+
   # UserID of created gerrit User
-  $gerrit_uid = $::operatingsystem ? {
-    default => undef,
-  }
+  $gerrit_uid = undef
+
   # Name of gerrit review site directory
-  $gerrit_site_name = $::operatingsystem ? {
-    default => 'review_site',
-  }
+  $site_name = 'review_site'
+
   # type of Database storing configs of gerrit ['mysql' / 'postgresql' / 'h2']
-  $database_type = $::operatingsystem ? {
-    default => 'postgresql',
-  }
+  $database_type = 'postgresql'
+
   # Manage the database?
-  $database_manage = $::operatingsystem ? {
-    default => true,
-  }
+  $database_manage = true
+
   # Default database password
-  $database_password = $::operatingsystem ? {
-    default => '',
-  }
-  $database_hostname = $::operatingsystem ? {
-    default => 'localhost',
-  }
-
-  $database_database = $::operatingsystem ? {
-    default => 'reviewdb',
-  }
-
-  $database_username = $::operatingsystem ? {
-    default => 'gerrit',
-  }
+  $database_password = ''
+  $database_hostname = 'localhost'
+  $database_database = 'reviewdb'
+  $database_username = 'gerrit'
 
   # Package to install for providing JAVA
   $gerrit_java = $::operatingsystem ? {
